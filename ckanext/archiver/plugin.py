@@ -73,7 +73,7 @@ class ArchiverPlugin(p.SingletonPlugin, p.toolkit.DefaultDatasetForm):
         if rev_list[0][0].id == model.Session.revision.id:
             rev_list = rev_list[1:]
         if not rev_list:
-            log.warn('No sign of previous revisions - will archive')
+            log.warning('No sign of previous revisions - will archive')
             return True
         previous_revision = rev_list[0][0]
         log.debug('Comparing with revision: %s %s',
@@ -89,7 +89,7 @@ class ArchiverPlugin(p.SingletonPlugin, p.toolkit.DefaultDatasetForm):
             old_pkg_dict = p.toolkit.get_action('package_show')(
                 context, data_dict)
         except p.toolkit.NotFound:
-            log.warn('No sign of previous package - will archive anyway')
+            log.warning('No sign of previous package - will archive anyway')
             return True
 
         # has the licence changed?
@@ -176,7 +176,7 @@ class ArchiverPlugin(p.SingletonPlugin, p.toolkit.DefaultDatasetForm):
 
     def get_helpers(self):
         return dict((name, function) for name, function
-                    in helpers.__dict__.items()
+                    in list(helpers.__dict__.items())
                     if callable(function) and name[0] != '_')
 
     # IPackageController

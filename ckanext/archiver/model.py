@@ -1,4 +1,5 @@
 import uuid
+from builtins import str
 from datetime import datetime
 
 from sqlalchemy import Column, MetaData
@@ -16,7 +17,7 @@ Base = declarative_base()
 
 
 def make_uuid():
-    return unicode(uuid.uuid4())
+    return str(uuid.uuid4())
 
 
 metadata = MetaData()
@@ -49,7 +50,7 @@ class Status:
         self._by_id = dict(not_broken, **broken)
         self._by_id.update(not_sure)
         self._by_text = dict((value, key)
-                             for key, value in self._by_id.iteritems())
+                             for key, value in self._by_id.items())
 
     @classmethod
     def instance(cls):

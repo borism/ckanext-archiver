@@ -65,7 +65,9 @@ setup(
         'SQLAlchemy>=0.6.6',
         'requests>=1.1.0',
         'progressbar',
-        'ckanext-report'
+        'ckanext-report',
+        'configparser',
+        'future',
     ],
 
     # If there are data files included in your packages that need to be

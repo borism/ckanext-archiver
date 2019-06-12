@@ -1,3 +1,7 @@
+from __future__ import print_function
+from future.standard_library import install_aliases
+install_aliases()
+
 import logging
 import os
 import shutil
@@ -7,7 +11,7 @@ import json
 import mock
 import unittest
 
-from urllib import quote_plus
+from urllib.parse import quote_plus
 from pylons import config
 from nose.tools import assert_raises, assert_equal
 
@@ -91,13 +95,13 @@ class TestLinkChecker(BaseCase):
             plugins.load_all(config)
 
     def test_file_url(self):
-        url = u'file:///home/root/test.txt'  # schema not allowed
+        url = 'file:///home/root/test.txt'  # schema not allowed
         context = json.dumps({})
         data = json.dumps({'url': url})
         assert_raises(LinkInvalidError, link_checker, context, data)
 
     def test_bad_url(self):
-        url = u'http:www.buckshealthcare.nhs.uk/freedom-of-information.htm'
+        url = 'http:www.buckshealthcare.nhs.uk/freedom-of-information.htm'
         context = json.dumps({})
         data = json.dumps({'url': url})
         assert_raises(LinkInvalidError, link_checker, context, data)
@@ -111,7 +115,7 @@ class TestLinkChecker(BaseCase):
         assert res
 
     def test_empty_url(self):
-        url = u''
+        url = ''
         context = json.dumps({})
         data = json.dumps({'url': url})
         assert_raises(LinkCheckerError, link_checker, context, data)
@@ -136,8 +140,8 @@ class TestLinkChecker(BaseCase):
 
     @with_mock_url('')
     def test_url_with_30x_follows_redirect(self, url):
-        redirect_url = url + u'?status=200&content=test&content-type=text/csv'
-        url += u'?status=301&location=%s' % quote_plus(redirect_url)
+        redirect_url = url + '?status=200&content=test&content-type=text/csv'
+        url += '?status=301&location=%s' % quote_plus(redirect_url)
         context = json.dumps({})
         data = json.dumps({'url': url})
         result = json.loads(link_checker(context, data))
@@ -189,7 +193,7 @@ class TestArchiver(BaseCase):
         os.removedirs(cls.temp_dir)
 
     def teardown(self):
-        pkg = model.Package.get(u'testpkg')
+        pkg = model.Package.get('testpkg')
         if pkg:
             model.repo.new_revision()
             pkg.purge()
@@ -209,7 +213,7 @@ class TestArchiver(BaseCase):
     def assert_archival_error(self, error_message_fragment, resource_id):
         archival = Archival.get_for_resource(resource_id)
         if error_message_fragment not in archival.reason:
-            print 'ERROR: %s (%s)' % (archival.reason, archival.status)
+            print('ERROR: %s (%s)' % (archival.reason, archival.status))
             raise AssertionError(archival.reason)
 
     def test_file_url(self):
@@ -320,8 +324,8 @@ class TestArchiver(BaseCase):
 
     @with_mock_url('')
     def test_url_with_30x_follows_and_records_redirect(self, url):
-        redirect_url = url + u'?status=200&content=test&content-type=text/csv'
-        url += u'?status=301&location=%s' % quote_plus(redirect_url)
+        redirect_url = url + '?status=200&content=test&content-type=text/csv'
+        url += '?status=301&location=%s' % quote_plus(redirect_url)
         res_id = self._test_resource(url)['id']
         result = json.loads(update_resource(self.config, res_id))
         assert result
@@ -400,7 +404,7 @@ class TestDownload(BaseCase):
         }
 
     def teardown(self):
-        pkg = model.Package.get(u'testpkg')
+        pkg = model.Package.get('testpkg')
         if pkg:
             model.repo.new_revision()
             pkg.purge()

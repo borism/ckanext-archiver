@@ -8,7 +8,7 @@ log = logging.getLogger(__name__)
 
 
 def compat_enqueue(name, fn, queue, args=None):
-    u'''
+    '''
     Enqueue a background job using Celery or RQ.
     '''
     try:
