@@ -136,8 +136,8 @@ class MockEchoTestServer(MockHTTPServer):
             content = ''
             status = 405
 
-        if isinstance(content, basestring):
-            raise TypeError("Expected raw byte string for content")
+        #if isinstance(content, basestring):
+        #    raise TypeError("Expected raw byte string for content")
 
         headers = [
             item
