@@ -22,8 +22,8 @@ else
 fi
 pip install --upgrade pip
 python setup.py develop
-pip install -r requirements.txt --allow-all-external
-pip install -r dev-requirements.txt --allow-all-external
+pip install -r requirements.txt # --allow-all-external
+pip install -r dev-requirements.txt # --allow-all-external
 cd -
 
 echo "Creating the PostgreSQL user and database..."
