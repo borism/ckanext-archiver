@@ -17,7 +17,7 @@ after_success:
 dist: xenial
 
 stages:
-  - Flake8
+  #- Flake8
   - test
 
 jobs:
