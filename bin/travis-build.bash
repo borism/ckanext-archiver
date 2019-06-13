@@ -20,6 +20,7 @@ else
     git checkout $CKAN_TAG
     echo "CKAN version: ${CKAN_TAG#ckan-}"
 fi
+pip install --upgrade pip
 python setup.py develop
 pip install -r requirements.txt --allow-all-external
 pip install -r dev-requirements.txt --allow-all-external
