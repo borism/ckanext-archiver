@@ -1,4 +1,7 @@
-from pylons import config
+try:
+    from ckan.common import config
+except ImportError:
+    from pylons import config
 
 # directory to save downloaded files to
 ARCHIVE_DIR = config.get('ckanext-archiver.archive_dir', '/tmp/archive')

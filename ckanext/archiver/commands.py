@@ -8,7 +8,10 @@ import shutil
 import itertools
 import ckan.plugins as p
 
-from pylons import config
+try:
+    from ckan.common import config
+except ImportError:
+    from pylons import config
 try:
     from collections import OrderedDict  # from python 2.7
 except ImportError:

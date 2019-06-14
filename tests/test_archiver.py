@@ -12,7 +12,10 @@ import mock
 import unittest
 
 from urllib.parse import quote_plus
-from pylons import config
+try:
+    from ckan.common import config
+except ImportError:
+    from pylons import config
 from nose.tools import assert_raises, assert_equal
 
 from ckan import model

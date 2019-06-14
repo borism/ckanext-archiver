@@ -260,7 +260,10 @@ def _update_resource(ckan_ini_filepath, resource_id, queue, log):
     load_config(ckan_ini_filepath)
 
     from ckan import model
-    from pylons import config
+    try:
+        from ckan.common import config
+    except ImportError:
+        from pylons import config
     from ckan.plugins import toolkit
     from ckanext.archiver import default_settings as settings
     from ckanext.archiver.model import Status, Archival
@@ -435,7 +438,10 @@ def download(context, resource, url_timeout=30,
       mimetype, size, hash, headers, saved_file, url_redirected_to
     '''
     from ckanext.archiver import default_settings as settings
-    from pylons import config
+    try:
+        from ckan.common import config
+    except ImportError:
+        from pylons import config
 
     if max_content_length == 'default':
         max_content_length = settings.MAX_CONTENT_LENGTH
@@ -648,7 +654,10 @@ def get_plugins_waiting_on_ipipe():
 
 
 def verify_https():
-    from pylons import config
+    try:
+        from ckan.common import config
+    except ImportError:
+        from pylons import config
     return toolkit.asbool(config.get('ckanext-archiver.verify_https', True))
 
 

@@ -23,7 +23,10 @@ def compat_enqueue(name, fn, queue, args=None):
 
 
 def create_archiver_resource_task(resource, queue):
-    from pylons import config
+    try:
+        from ckan.common import config
+    except ImportError:
+        from pylons import config
     if p.toolkit.check_ckan_version(max_version='2.2.99'):
         # earlier CKANs had ResourceGroup
         package = resource.resource_group.package
@@ -38,7 +41,10 @@ def create_archiver_resource_task(resource, queue):
 
 
 def create_archiver_package_task(package, queue):
-    from pylons import config
+    try:
+        from ckan.common import config
+    except ImportError:
+        from pylons import config
     ckan_ini_filepath = os.path.abspath(config['__file__'])
 
     compat_enqueue('archiver.update_package', update_package, queue, [ckan_ini_filepath, package.id])
